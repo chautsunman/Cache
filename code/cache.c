@@ -96,6 +96,7 @@ cache_t *cache_new(size_t num_blocks, size_t block_size, unsigned int associativ
 static int cache_line_check_validity_and_tag(cache_line_t *cache_line, intptr_t tag)
 {
     /* TO BE COMPLETED BY THE STUDENT */
+    return cache_line->tag == tag && cache_line->is_valid;
 }
 
 /*
@@ -108,7 +109,7 @@ static int cache_line_retrieve_data(cache_line_t *cache_line, size_t offset)
 
 /*
  * Move the cache lines inside a cache set so the cache line with the given index is
- * tagged as the most recently used one. The most recently used cache line will be the 
+ * tagged as the most recently used one. The most recently used cache line will be the
  * 0'th one in the set, the second most recently used cache line will be next, etc.
  * Cache lines whose valid bit is 0 will occur after all cache lines whose valid bit
  * is 1.
