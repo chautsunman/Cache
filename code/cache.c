@@ -135,10 +135,28 @@ static cache_line_t *cache_line_make_mru(cache_set_t *cache_set, size_t line_ind
 static cache_line_t *cache_set_find_matching_line(cache_t *cache, cache_set_t *cache_set, intptr_t tag)
 {
     /* TO BE COMPLETED BY THE STUDENT */
+    int found = 0;
+
+    int i;
+    for (i = 0; i < cache->associativity; i++) {
+        if (cache_line_check_validity_and_tag(cache_set->cache_lines[i], tag)) {
+            found = 1;
+            break;
+        }
+    }
 
     /*
      * Don't forget to call cache_line_make_mru(cache_set, i) if you find a matching cache line.
      */
+    if (found) {
+        cache_line_make_mru(cache_set, i);
+    }
+
+    if (found) {
+        return cache_set->cache_lines[0];
+    } else {
+        return NULL;
+    }
 }
 
 /*
