@@ -218,17 +218,25 @@ static cache_line_t *cache_set_add(cache_t *cache, cache_set_t *cache_set, intpt
 int cache_read(cache_t *cache, int *address)
 {
     /* TO BE COMPLETED BY THE STUDENT */
+    cache->access_count++;
+
     intptr_t index = ((intptr_t) address >> cache->cache_index_shift) & cache->cache_index_mask;
     intptr_t tag = (intptr_t) address >> cache->tag_shift;
 
+    // find the corresponding cache line
     cache_line_t *line = cache_set_find_matching_line(cache, &(cache->sets[index]), tag);
 
+    // the data is not cached
     if (line == NULL) {
+        cache->miss_count++;
+
+        // cache the data
         line = cache_set_add(cache, &(cache->sets[index]), (intptr_t) address, tag);
     }
 
+    // return the data
     size_t offset = (intptr_t) address & cache->block_offset_mask;
-    return cache_line_retrieve_data(line, offset);
+    return (int) cache_line_retrieve_data(line, offset);
 }
 
 /*
