@@ -89,4 +89,27 @@ int main()
     cache = cache_new(256, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
     printf("Sum = %d\n", sumC(test_array));
     print_stats();
+
+
+    // Question 3a
+    cache = cache_new(128, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
+    printf("Sum = %d\n", sumA(test_array));
+    print_stats();
+
+    // Question 3b
+    cache = cache_new(128, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
+    printf("Sum = %d\n", sumB(test_array));
+    print_stats();
+
+    // Question 3c
+    cache = cache_new(128, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
+    printf("Sum = %d\n", sumC(test_array));
+    print_stats();
+
+    // Question 3d
+    /*
+    cache = cache_new(128, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
+    printf("Sum = %d\n", sumB(test_array));
+    print_stats();
+    */
 }
