@@ -71,3 +71,25 @@ Jumping forward, then back, will not remove the old cache line, as the forward
 one maps to a different cache line.
 Since each cache line can store 4 integers, there is 1 miss for each 4 accesses,
 so the miss rate is 0.25.
+
+
+4.
+Improvement 1
+ - initialize the world in row-major order (newWorld[i][j])
+ - this improves spatial locality, as 2D arrays in C are stored in row-major order,
+   this access pattern accesses the array sequentially, which could improve spatial locality
+ - Measurement 1: 1788716
+ - Measurement 2: 1788877
+ - Measurement 3: 1788742
+ - Measurement 4: 1789543
+ - Measurement 5: 1791958
+ - Measurement 6: 1817467
+ - Measurement 7: 1814990
+ - Measurement 8: 1811607
+ - Measurement 9: 1792842
+ - OMeasurement 10: 1788970
+
+Results
+Improvement  Average time  Performance improvement ratio
+Base
+1
