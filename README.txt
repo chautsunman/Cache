@@ -77,19 +77,39 @@ so the miss rate is 0.25.
 Improvement 1
  - initialize the world in row-major order (newWorld[i][j])
  - this improves spatial locality, as 2D arrays in C are stored in row-major order,
-   this access pattern accesses the array sequentially, which could improve spatial locality
- - Measurement 1: 1788716
- - Measurement 2: 1788877
- - Measurement 3: 1788742
- - Measurement 4: 1789543
- - Measurement 5: 1791958
- - Measurement 6: 1817467
- - Measurement 7: 1814990
- - Measurement 8: 1811607
- - Measurement 9: 1792842
- - OMeasurement 10: 1788970
+   and this access pattern accesses the array sequentially
+ - Measurement 1:
+ - Measurement 2:
+ - Measurement 3:
+ - Measurement 4:
+ - Measurement 5:
+ - Measurement 6:
+ - Measurement 7:
+ - Measurement 8:
+ - Measurement 9:
+ - Measurement 10:
+ - Average:
+
+Improvement 2
+ - access and write the world in row-major order (oldWorld[row][col], newWorld[i][j])
+ - the old code accesses and writes the world in column-major order, despite
+   the naming convention for using i/row as row index and j/col as column index
+ - this improves spatial locality, as 2D arrays in C are stored in row-major order,
+   and this access pattern accesses the array sequentially
+ - Measurement 1:
+ - Measurement 2:
+ - Measurement 3:
+ - Measurement 4:
+ - Measurement 5:
+ - Measurement 6:
+ - Measurement 7:
+ - Measurement 8:
+ - Measurement 9:
+ - Measurement 10:
+ - Average:
 
 Results
 Improvement  Average time  Performance improvement ratio
 Base
 1
+2
