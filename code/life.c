@@ -244,8 +244,6 @@ int life(long oldWorld[N][N], long newWorld[N][N]) {
 #endif
 
 
-#define USE
-
 #ifdef USE
 
 int life(long oldWorld[N][N], long newWorld[N][N]) {
@@ -355,6 +353,127 @@ int life(long oldWorld[N][N], long newWorld[N][N]) {
     for (j = 0; j < N; j++) {
       newWorld[j][i] = checkHealth(newWorld[j][i], oldWorld[j][i]);
       alive += newWorld[j][i] ? 1:0;
+    }
+
+  return alive;
+}
+#undef USE
+#endif
+
+
+#define USE
+
+#ifdef USE
+
+int life(long oldWorld[N][N], long newWorld[N][N]) {
+
+  int i, j, k, l;
+
+  //clear the new world
+  for (i = 0; i < N; i++)
+    for (j = 0; j < N; j++) {
+      // Improvement 1
+      // initialize the world in row-major order
+      newWorld[i][j] =  0;
+    }
+
+  int col, row;
+  int q = -1;
+
+
+  // Count the cells to the top left
+  for (i = 0; i < N; i++) {
+    row = (i - 1 + N) % N;
+    for (j = 0; j < N; j++) {
+      col = (j - 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      newWorld[i][j] += oldWorld[row][col];
+    }
+  }
+
+  // Count the cells immediately above
+  for (i = 0; i < N; i++) {
+    row = (i - 1 + N) % N;
+    for (j = 0; j < N; j++) {
+        // Improvement 2
+        // access and write the world in row-major order
+      newWorld[i][j] += oldWorld[row][j];
+    }
+  }
+
+  // Count the cells to the top right
+  for (i = 0; i < N; i++) {
+    row = (i - 1 + N) % N;
+    for (j = 0; j < N; j++) {
+      col = (j + 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      newWorld[i][j] += oldWorld[row][col];
+    }
+  }
+
+  // Count the cells to the immediate left
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++) {
+      col = (j - 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      newWorld[i][j] += oldWorld[i][col];
+    }
+  }
+
+  // Count the cells to the immediate right
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++) {
+      col = (j + 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      newWorld[i][j] += oldWorld[i][col];
+    }
+  }
+
+  // Count the cells to the bottom left
+  for (i = 0; i < N; i++) {
+    row = (i + 1 + N) % N;
+    for (j = 0; j < N; j++) {
+      col = (j - 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      newWorld[i][j] += oldWorld[row][col];
+    }
+  }
+
+  // Count the cells immediately below
+  for (i = 0; i < N; i++) {
+    row = (i + 1 + N ) % N;
+    for (j = 0; j < N; j++) {
+        // Improvement 2
+        // access and write the world in row-major order
+      newWorld[i][j] += oldWorld[row][j];
+    }
+      }
+
+  // Count the cells to the bottom right
+  for (i = 0; i < N; i++) {
+    row = (i + 1 + N) % N;
+    for (j = 0; j < N; j++) {
+      col = (j + 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      newWorld[i][j] += oldWorld[row][col];
+    }
+  }
+
+  // Check each cell to see if it should come to life, continue to live, or die
+  int alive = 0;
+
+  for (i = 0; i < N; i++)
+    for (j = 0; j < N; j++) {
+      // Improvement 3
+      // compute the world in row-major order
+      newWorld[i][j] = checkHealth(newWorld[i][j], oldWorld[i][j]);
+      alive += newWorld[i][j] ? 1 : 0;
     }
 
   return alive;
