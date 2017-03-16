@@ -361,8 +361,6 @@ int life(long oldWorld[N][N], long newWorld[N][N]) {
 #endif
 
 
-#define USE
-
 #ifdef USE
 
 int life(long oldWorld[N][N], long newWorld[N][N]) {
@@ -462,6 +460,84 @@ int life(long oldWorld[N][N], long newWorld[N][N]) {
       // Improvement 2
       // access and write the world in row-major order
       newWorld[i][j] += oldWorld[row][col];
+    }
+  }
+
+  // Check each cell to see if it should come to life, continue to live, or die
+  int alive = 0;
+
+  for (i = 0; i < N; i++)
+    for (j = 0; j < N; j++) {
+      // Improvement 3
+      // compute the world in row-major order
+      newWorld[i][j] = checkHealth(newWorld[i][j], oldWorld[i][j]);
+      alive += newWorld[i][j] ? 1 : 0;
+    }
+
+  return alive;
+}
+#undef USE
+#endif
+
+
+#define USE
+
+#ifdef USE
+
+int life(long oldWorld[N][N], long newWorld[N][N]) {
+
+  int i, j, k, l;
+
+  //clear the new world
+  for (i = 0; i < N; i++)
+    for (j = 0; j < N; j++) {
+      // Improvement 1
+      // initialize the world in row-major order
+      newWorld[i][j] =  0;
+    }
+
+  int colLeft, colRight, row;
+  int q = -1;
+
+
+  // Count the cells immediately above, to the top left and to the top right
+  for (i = 0; i < N; i++) {
+    row = (i - 1 + N) % N;
+    for (j = 0; j < N; j++) {
+      colLeft = (j - 1 + N) % N;
+      colRight = (j + 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      // Improvement 4
+      // access the same row at the same time
+      newWorld[i][j] += oldWorld[row][j] + oldWorld[row][colLeft] + oldWorld[row][colRight];
+    }
+  }
+
+  // Count the cells to the immediate left and to the immediate right
+  for (i = 0; i < N; i++) {
+    for (j = 0; j < N; j++) {
+      colLeft = (j - 1 + N) % N;
+      colRight = (j + 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      // Improvement 4
+      // access the same row at the same time
+      newWorld[i][j] += oldWorld[i][colLeft] + oldWorld[i][colRight];
+    }
+  }
+
+  // Count the cells immediately below, to the bottom left and to the bottom right
+  for (i = 0; i < N; i++) {
+    row = (i + 1 + N) % N;
+    for (j = 0; j < N; j++) {
+      colLeft = (j - 1 + N) % N;
+      colRight = (j + 1 + N) % N;
+      // Improvement 2
+      // access and write the world in row-major order
+      // Improvement 4
+      // access the same row at the same time
+      newWorld[i][j] += oldWorld[row][j] + oldWorld[row][colLeft] + oldWorld[row][colRight];
     }
   }
 

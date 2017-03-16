@@ -124,9 +124,27 @@ Improvement 3
   - Measurement 10:
   - Average:
 
+Improvement 4
+ - access the same row at the same time
+ - this takes advantage of spatial locality, as 2D arrays in C are stored in row-major order,
+   and this improvement accesses the elements nearby at the same time
+ - this also reduces the number of loops of the program
+ - Measurement 1:
+ - Measurement 2:
+ - Measurement 3:
+ - Measurement 4:
+ - Measurement 5:
+ - Measurement 6:
+ - Measurement 7:
+ - Measurement 8:
+ - Measurement 9:
+ - Measurement 10:
+ - Average:
+
 Results
 Improvement  Average time  Performance improvement ratio
 Base
 1
 2
 3
+4
