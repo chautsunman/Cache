@@ -158,6 +158,23 @@ Improvement 5
  - Measurement 10:
  - Average:
 
+
+Improvement 6
+ - store the elements read for the next iteration
+ - this reduces the total number of reads by temporarily storing the elements read
+   in the current iteration for the next iteration, as the values need to be reused
+ - Measurement 1:
+ - Measurement 2:
+ - Measurement 3:
+ - Measurement 4:
+ - Measurement 5:
+ - Measurement 6:
+ - Measurement 7:
+ - Measurement 8:
+ - Measurement 9:
+ - Measurement 10:
+ - Average:
+
 Results
 Improvement  Average time  Performance improvement ratio
 Base
@@ -166,3 +183,4 @@ Base
 3
 4
 5
+6
